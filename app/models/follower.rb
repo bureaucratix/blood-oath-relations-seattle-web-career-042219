@@ -16,13 +16,15 @@ class Follower
   end
 
   def cults
-    self.oaths.map do |oath|
-      oath.cult
-    end
+    oaths.map(&:cult)
   end
 
   def join_cult(cult, current_date)
-     new_oath = BloodOath.new(self, cult, current_date)
+    if @age < cult.minimum_age
+      puts "Sorry buddy, you're a bit young for the culting business."
+    else
+      new_oath = BloodOath.new(self, cult, current_date)
+   end
   end
 
   def self.all
@@ -35,4 +37,25 @@ class Follower
     end
   end
 
+  def my_cults_slogans
+    cults.collect(&:slogan)
+  end
+
+  def self.most_active
+    @@all.max_by do |flwr|
+      flwr.cults.length
+    end
+  end
+
+  def self.top_ten
+    @@all.sort_by do |flwr|
+      flwr.cults.length
+    end.reverse[0..9]
+  end
+
+  def fellow_cult_members
+    cults.collect do |cult|
+      cult.oaths.collect(&:follower)
+    end.flatten.uniq
+  end
 end

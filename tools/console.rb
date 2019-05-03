@@ -14,6 +14,9 @@ alex = Follower.new("Alex", 27, "I love cults!")
 laura = Follower.new("Laura", 39, "I don't love cults QUITE as much")
 joe = Follower.new("Joe", 31, "I love fish!")
 
+laura.join_cult(goodcult, "2019-05-02")
+alex.join_cult(goodcult, "2019-05-02")
+
 
 binding.pry
 

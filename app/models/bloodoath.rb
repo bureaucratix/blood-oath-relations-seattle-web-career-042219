@@ -13,4 +13,10 @@ class BloodOath
     @@all
   end
 
+  def self.first_oath
+    @@all.sort_by do |oath|
+      oath.initiation_date
+    end.first
+  end
+
 end
